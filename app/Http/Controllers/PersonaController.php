@@ -14,7 +14,8 @@ class PersonaController extends Controller
      */
     public function index()
     {
-        //
+        $personas = Persona::all();
+        return view("personas.personasIndex",compact("personas"));
     }
 
     /**
@@ -51,7 +52,7 @@ class PersonaController extends Controller
         $persona ->telefono = $request->telefono ?? "";
         $persona ->correo = $request->correo;
         $persona->save();
-        return redirect()->route("persona.create");
+        return redirect()->route("persona.index");
     }
 
     /**
@@ -62,7 +63,7 @@ class PersonaController extends Controller
      */
     public function show(Persona $persona)
     {
-        //
+        return view("personas.personasShow",compact("persona"));
     }
 
     /**
@@ -73,7 +74,7 @@ class PersonaController extends Controller
      */
     public function edit(Persona $persona)
     {
-        //
+        return view("personas.personasForm",compact("persona"));
     }
 
     /**
@@ -85,7 +86,22 @@ class PersonaController extends Controller
      */
     public function update(Request $request, Persona $persona)
     {
-        //
+        $request->validate([
+            "nombre" => "required|string",
+            "apellido_paterno" => "required|string",
+            "apellido_materno" => "string|nullable",
+            "identificador" => "required|alpha_num",
+            "telefono" => "digits_between:8,10|nullable",
+            "correo" => "required|email",
+        ]);
+        $persona ->nombre = $request->nombre;
+        $persona->apellido_paterno = $request->apellido_paterno;
+        $persona->apellido_materno = $request->apellido_materno ?? "";
+        $persona ->identificador = $request->identificador;
+        $persona ->telefono = $request->telefono ?? "";
+        $persona ->correo = $request->correo;
+        $persona->save();
+        return redirect()->route("persona.show",$persona);
     }
 
     /**

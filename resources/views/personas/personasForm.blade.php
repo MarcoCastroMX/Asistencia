@@ -7,26 +7,31 @@
     <title>Creacion Persona</title>
 </head>
 <body>
-    <h1>Formulario para Crear Personas</h1>
-    <form action="{{route("persona.store")}}" method="POST">
+    <h1>Formulario para {{ isset($persona) ? "Editar" : "Crear" }} Personas</h1>
+    @if(isset($persona))
+        <form action="{{ route("persona.update",$persona) }}" method="POST">
+        @method("PATCH")
+    @else
+        <form action="{{route("persona.store")}}" method="POST">
+    @endif
         @csrf
         <label for="nombre">Nombre</label><br>
-        <input type="text" name="nombre" required>
+        <input type="text" name="nombre" required value="{{ $persona->nombre ?? "" }}">
         <br>
         <label for="apellido_paterno">Apellido Paterno</label><br>
-        <input type="text" name="apellido_paterno" required>
+        <input type="text" name="apellido_paterno" required value="{{ $persona->apellido_paterno ?? "" }}">
         <br>
         <label for="apellido_materno">Apellido Materno</label><br>
-        <input type="text" name="apellido_materno">
+        <input type="text" name="apellido_materno" value="{{ $persona->apellido_materno ?? "" }}">
         <br>
         <label for="identificador">Identificador</label><br>
-        <input type="text" name="identificador" required>
+        <input type="text" name="identificador" required value="{{ $persona->identificador ?? "" }}">
         <br>
         <label for="telefono">Telefono</label><br>
-        <input type="text" name="telefono" id="telefono">
+        <input type="text" name="telefono" id="telefono" value="{{ $persona->telefono ?? "" }}">
         <br>
         <label for="correo">Correo</label><br>
-        <input type="text" name="correo" id="correo" required>
+        <input type="text" name="correo" id="correo" required value="{{ $persona->correo ?? "" }}">
         <br>
         <input type="submit" value="Enviar">
     </form>
