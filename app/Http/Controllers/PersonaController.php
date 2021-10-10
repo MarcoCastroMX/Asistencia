@@ -45,14 +45,19 @@ class PersonaController extends Controller
             "telefono" => "digits_between:8,10|nullable",
             "correo" => "required|email",
         ]);
-        $persona = new Persona();
+        $request->merge([
+            "apellido_materno" => $request->apellido_materno ?? "",
+            "telefono" => $request->telefono ?? ""
+        ]);
+        Persona::create($request->all());
+        /*$persona = new Persona();
         $persona ->nombre = $request->nombre;
         $persona->apellido_paterno = $request->apellido_paterno;
         $persona->apellido_materno = $request->apellido_materno ?? "";
         $persona ->identificador = $request->identificador;
         $persona ->telefono = $request->telefono ?? "";
         $persona ->correo = $request->correo;
-        $persona->save();
+        $persona->save();*/
         return redirect()->route("persona.index");
     }
 
@@ -99,13 +104,19 @@ class PersonaController extends Controller
             "telefono" => "digits_between:8,10|nullable",
             "correo" => "required|email",
         ]);
+        $request->merge([
+            "apellido_materno" => $request->apellido_materno ?? "",
+            "telefono" => $request->telefono ?? ""
+        ]);
+        Persona::where("id",$persona ->id)->update($request->except("_token","_method"));
+        /*
         $persona ->nombre = $request->nombre;
-        $persona->apellido_paterno = $request->apellido_paterno;
-        $persona->apellido_materno = $request->apellido_materno ?? "";
+        $persona ->apellido_paterno = $request->apellido_paterno;
+        $persona ->apellido_materno = $request->apellido_materno ?? "";
         $persona ->identificador = $request->identificador;
         $persona ->telefono = $request->telefono ?? "";
         $persona ->correo = $request->correo;
-        $persona->save();
+        $persona->save();*/
         return redirect()->route("persona.show",$persona);
     }
 
