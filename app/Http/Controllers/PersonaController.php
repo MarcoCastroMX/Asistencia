@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Persona;
+use Illuminate\Validation\Rule;
 use Illuminate\Http\Request;
 
 class PersonaController extends Controller
@@ -40,7 +41,7 @@ class PersonaController extends Controller
             "nombre" => "required|string",
             "apellido_paterno" => "required|string",
             "apellido_materno" => "string|nullable",
-            "identificador" => "required|alpha_num",
+            "identificador" => "required|alpha_num|unique:personas",
             "telefono" => "digits_between:8,10|nullable",
             "correo" => "required|email",
         ]);
@@ -90,7 +91,11 @@ class PersonaController extends Controller
             "nombre" => "required|string",
             "apellido_paterno" => "required|string",
             "apellido_materno" => "string|nullable",
-            "identificador" => "required|alpha_num",
+            "identificador" => [
+                "required",
+                "alpha_num",
+                Rule::unique("personas")->ignore($persona->id),
+            ],
             "telefono" => "digits_between:8,10|nullable",
             "correo" => "required|email",
         ]);
@@ -112,6 +117,7 @@ class PersonaController extends Controller
      */
     public function destroy(Persona $persona)
     {
-        //
+        $persona->delete();
+        return redirect()->route("persona.index");
     }
 }

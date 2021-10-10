@@ -20,5 +20,11 @@
     </ul>
     <hr>
     <a href="{{ route("persona.edit",$persona)}}">Editar</a>
+    <hr>
+    <form action="{{ route("persona.destroy",$persona) }}" method="POST">
+        @csrf
+        @method("DELETE")
+        <input type="submit" value="Borrar">
+    </form>
 </body>
 </html>
