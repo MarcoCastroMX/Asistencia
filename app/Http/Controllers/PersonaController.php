@@ -16,7 +16,8 @@ class PersonaController extends Controller
      */
     public function index()
     {
-        $personas = Persona::all();
+        //$personas = Persona::where("user_id",Auth::id())->get();
+        $personas = Auth::user()->personas;
         return view("personas.personasIndex",compact("personas"));
     }
 
