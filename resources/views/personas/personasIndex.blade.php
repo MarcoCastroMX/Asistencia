@@ -13,6 +13,7 @@
         <thead>
             <tr>
                 <th>ID</th>
+                <th>Usuario Creado</th>
                 <th>Nombre</th>
                 <th>Apellido Paterno</th>
                 <th>Apellido Materno</th>
@@ -27,6 +28,7 @@
                     <td>
                        <a href="{{ route("persona.show",$persona->id) }}">{{ $persona->id}}</a>
                     </td>
+                    <td>{{ $persona->user->name }}({{ $persona->user->email }})</td>
                     <td>{{ $persona->nombre}}</td>
                     <td>{{ $persona->apellido_paterno}}</td>
                     <td>{{ $persona->apellido_materno}}</td>

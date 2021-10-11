@@ -15,6 +15,7 @@ class CreatePersonasTable extends Migration
     {
         Schema::create('personas', function (Blueprint $table) {
             $table->id();
+            $table->foreignId("user_id")->constrained();
             $table->string("nombre");
             $table->string("apellido_paterno");
             $table->string("apellido_materno");

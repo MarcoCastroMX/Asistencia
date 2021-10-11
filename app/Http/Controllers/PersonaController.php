@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Persona;
 use Illuminate\Validation\Rule;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class PersonaController extends Controller
 {
@@ -46,6 +47,7 @@ class PersonaController extends Controller
             "correo" => "required|email",
         ]);
         $request->merge([
+            "user_id" => Auth::id(),
             "apellido_materno" => $request->apellido_materno ?? "",
             "telefono" => $request->telefono ?? ""
         ]);
