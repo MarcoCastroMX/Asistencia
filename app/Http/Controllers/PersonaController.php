@@ -48,11 +48,19 @@ class PersonaController extends Controller
             "correo" => "required|email",
         ]);
         $request->merge([
+            "apellido_materno" => $request->apellido_materno ?? "",
+            "telefono" => $request->telefono ?? ""
+        ]);
+        $persona = new Persona($request->all());
+        Auth::user()->personas()->save($persona);
+        /*
+        $request->merge([
             "user_id" => Auth::id(),
             "apellido_materno" => $request->apellido_materno ?? "",
             "telefono" => $request->telefono ?? ""
         ]);
-        Persona::create($request->all());
+        Persona::create($request->all());*/
+
         /*$persona = new Persona();
         $persona ->nombre = $request->nombre;
         $persona->apellido_paterno = $request->apellido_paterno;
