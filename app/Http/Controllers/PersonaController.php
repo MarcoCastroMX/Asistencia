@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Area;
 use App\Models\Persona;
 use Illuminate\Validation\Rule;
 use Illuminate\Http\Request;
@@ -33,7 +34,8 @@ class PersonaController extends Controller
      */
     public function create()
     {
-        return view("personas.personasForm");
+        $areas = Area::all();
+        return view("personas.personasForm",compact("areas"));
     }
 
     /**
@@ -52,20 +54,20 @@ class PersonaController extends Controller
             "telefono" => "digits_between:8,10|nullable",
             "correo" => "required|email",
         ]);
-        $request->merge([
+        /*$request->merge([
             "apellido_materno" => $request->apellido_materno ?? "",
             "telefono" => $request->telefono ?? ""
         ]);
         $persona = new Persona($request->all());
         Auth::user()->personas()->save($persona);
-        /*
+        */
         $request->merge([
             "user_id" => Auth::id(),
             "apellido_materno" => $request->apellido_materno ?? "",
             "telefono" => $request->telefono ?? ""
         ]);
-        Persona::create($request->all());*/
-
+        $persona = Persona::create($request->all());
+        $persona->areas()->attach($request->area_id);
         /*$persona = new Persona();
         $persona ->nombre = $request->nombre;
         $persona->apellido_paterno = $request->apellido_paterno;
@@ -96,7 +98,8 @@ class PersonaController extends Controller
      */
     public function edit(Persona $persona)
     {
-        return view("personas.personasForm",compact("persona"));
+        $areas = Area::all();
+        return view("personas.personasForm",compact("persona","areas"));
     }
 
     /**
@@ -124,7 +127,8 @@ class PersonaController extends Controller
             "apellido_materno" => $request->apellido_materno ?? "",
             "telefono" => $request->telefono ?? ""
         ]);
-        Persona::where("id",$persona ->id)->update($request->except("_token","_method"));
+        Persona::where("id",$persona ->id)->update($request->except("_token","_method","area_id"));
+        $persona->areas()->sync($request->area_id);
         /*
         $persona ->nombre = $request->nombre;
         $persona ->apellido_paterno = $request->apellido_paterno;

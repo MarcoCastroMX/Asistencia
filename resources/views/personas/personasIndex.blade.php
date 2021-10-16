@@ -26,6 +26,13 @@
             @foreach ($personas as $persona)
                 <tr>
                     <td>
+                        <ul>
+                            @foreach ($persona->areas as $area)
+                                <li>{{ $area->nombre_area }}</li>
+                            @endforeach
+                        </ul>
+                    </td>
+                    <td>
                        <a href="{{ route("persona.show",$persona->id) }}">{{ $persona->id}}</a>
                     </td>
                     <td>{{ $persona->user->name }}({{ $persona->user->email }})</td>
