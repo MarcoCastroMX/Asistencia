@@ -12,6 +12,7 @@
     <table border ="1">
         <thead>
             <tr>
+                <th>Area</th>
                 <th>ID</th>
                 <th>Usuario Creado</th>
                 <th>Nombre</th>

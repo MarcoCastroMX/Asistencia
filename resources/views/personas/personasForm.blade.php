@@ -35,11 +35,19 @@
         <br>
         <label for="area_id">Area:</label>
         <select name="area_id[]" id="area_id" multiple>
-            @foreach ($areas as $area)
-                <option value="{{ $area->id }}" {{ array_search($area->id,$persona->areas->pluck("id")->toArray())===false ? "":"selected"}}>
-                    {{ $area->nombre_area }}
-                </option>
-            @endforeach
+            @if (isset($persona))
+                @foreach ($areas as $area)
+                    <option value="{{ $area->id }}" {{ array_search($area->id,$persona->areas->pluck('id')->toArray())=== false ? '' : 'selected'}}>
+                        {{ $area->nombre_area }}
+                    </option>
+                @endforeach
+            @else
+                @foreach ($areas as $area)
+                    <option value="{{ $area->id }}">
+                        {{ $area->nombre_area }}
+                    </option>
+                @endforeach
+            @endif
         </select>
         <input type="submit" value="Enviar">
     </form>
