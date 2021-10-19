@@ -23,7 +23,8 @@ class PersonaController extends Controller
     {
         //$personas = Persona::where("user_id",Auth::id())->get();
         //$personas = Auth::user()->personas;
-        $personas = Persona::all();
+        //$personas = Persona::all();
+        $personas = Persona::with("areas")->get();
         return view("personas.personasIndex",compact("personas"));
     }
 
