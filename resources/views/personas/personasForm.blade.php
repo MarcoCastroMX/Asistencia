@@ -1,12 +1,4 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Creacion Persona</title>
-</head>
-<body>
+<x-mi-layout>
     <h1>Formulario para {{ isset($persona) ? "Editar" : "Crear" }} Personas</h1>
     @if(isset($persona))
         <form action="{{ route("persona.update",$persona) }}" method="POST">
@@ -35,19 +27,11 @@
         <br>
         <label for="area_id">Area:</label>
         <select name="area_id[]" id="area_id" multiple>
-            @if (isset($persona))
-                @foreach ($areas as $area)
-                    <option value="{{ $area->id }}" {{ array_search($area->id,$persona->areas->pluck('id')->toArray())=== false ? '' : 'selected'}}>
-                        {{ $area->nombre_area }}
-                    </option>
-                @endforeach
-            @else
-                @foreach ($areas as $area)
-                    <option value="{{ $area->id }}">
-                        {{ $area->nombre_area }}
-                    </option>
-                @endforeach
-            @endif
+            @foreach ($areas as $area)
+                <option value="{{ $area->id }}" {{ isset($persona) && array_search($area->id,$persona->areas->pluck('id')->toArray())== false ? 'selected': ''}}>
+                    {{ $area->nombre_area }}
+                </option>
+            @endforeach
         </select>
         <input type="submit" value="Enviar">
     </form>
@@ -60,5 +44,4 @@
         </ul>
     </div>
     @endif
-</body>
-</html>
+</x-mi-layout>

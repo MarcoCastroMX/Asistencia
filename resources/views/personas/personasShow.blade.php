@@ -1,12 +1,5 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Informacion de {{ $persona ->nombre }}</title>
-</head>
-<body>
+@extends("layouts.mi-layout")
+@section("contenido")
     <h1>Informacion de {{ $persona ->nombre }}</h1>
     <a href="{{ route("persona.index") }}">Listado de Personas</a>
     <ul>
@@ -28,5 +21,4 @@
         @method("DELETE")
         <input type="submit" value="Borrar">
     </form>
-</body>
-</html>
+@endsection
