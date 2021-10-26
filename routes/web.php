@@ -20,6 +20,10 @@ Route::get('/', function () {
 
 Route::resource('persona', PersonaController::class);
 
+Route::get('inicio', function () {
+    return view("inicio");
+});
+
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     return view('dashboard');
 })->name('dashboard');
