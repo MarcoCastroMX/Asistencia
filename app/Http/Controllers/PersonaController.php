@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\Notificacion;
 use App\Models\Area;
 use App\Models\Persona;
 use Illuminate\Validation\Rule;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 
 class PersonaController extends Controller
 {
@@ -151,5 +153,10 @@ class PersonaController extends Controller
     {
         $persona->delete();
         return redirect()->route("persona.index");
+    }
+
+    public function notificar(){
+        Mail::to(\Auth::user()->email)->send(new Notificacion());
+        return redirect()->back();
     }
 }

@@ -1,5 +1,10 @@
 @extends("layouts.mi-layout")
 @section("contenido")
+
+    <p>
+        <a href="{{ route('notificar')}}">Enviar Notificacion</a>
+    </p>
+
     <h1>Listado de Personas</h1>
 
     <table border ="1">
