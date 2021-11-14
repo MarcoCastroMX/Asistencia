@@ -4,7 +4,7 @@
         <form action="{{ route("persona.update",$persona) }}" method="POST">
         @method("PATCH")
     @else
-        <form action="{{route("persona.store")}}" method="POST">
+        <form action="{{route("persona.store")}}" method="POST" enctype="multipart/form-data">
     @endif
         @csrf
         <label for="nombre">Nombre</label><br>
@@ -33,6 +33,9 @@
                 </option>
             @endforeach
         </select>
+        <br>
+        <input type="file" name="archivo">
+        <br>
         <input type="submit" value="Enviar">
     </form>
     @if ($errors->any())

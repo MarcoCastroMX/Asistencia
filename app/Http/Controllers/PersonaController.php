@@ -57,6 +57,13 @@ class PersonaController extends Controller
             "telefono" => "digits_between:8,10|nullable",
             "correo" => "required|email",
         ]);
+
+        //$archivo = $request ->file('archivo');
+
+        $ruta = $request->archivo->save("imagenes");
+        $mime = $request->archivo->getClientMimeType();
+        $nombre_original = $request->archivo->getClientOriginalName();
+
         /*$request->merge([
             "apellido_materno" => $request->apellido_materno ?? "",
             "telefono" => $request->telefono ?? ""
