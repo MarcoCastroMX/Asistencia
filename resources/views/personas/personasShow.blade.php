@@ -21,4 +21,10 @@
         @method("DELETE")
         <input type="submit" value="Borrar">
     </form>
+    <hr>
+    <h3>Archivo:</h3>
+    <h5>
+        <a href="{{ route("descargar",$persona) }}">{{ $persona->archivo_original }}</a>
+    </h5>
+    
 @endsection

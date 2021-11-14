@@ -9,6 +9,7 @@ use Illuminate\Validation\Rule;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Storage;
 
 class PersonaController extends Controller
 {
@@ -60,7 +61,7 @@ class PersonaController extends Controller
 
         //$archivo = $request ->file('archivo');
 
-        $ruta = $request->archivo->save("imagenes");
+        $ruta = $request->archivo->store("imagenes");
         $mime = $request->archivo->getClientMimeType();
         $nombre_original = $request->archivo->getClientOriginalName();
 
@@ -72,6 +73,9 @@ class PersonaController extends Controller
         Auth::user()->personas()->save($persona);
         */
         $request->merge([
+            "archivo_original" => $nombre_original,
+            "archivo_ruta" => $ruta,
+            "mime" => $mime,
             "user_id" => Auth::id(),
             "apellido_materno" => $request->apellido_materno ?? "",
             "telefono" => $request->telefono ?? ""
@@ -165,5 +169,10 @@ class PersonaController extends Controller
     public function notificar(){
         Mail::to(\Auth::user()->email)->send(new Notificacion());
         return redirect()->back();
+    }
+
+    public function descargarArchivo(Persona $persona){
+        $headers = ['Content-Type' => $persona->mime];
+        return Storage::download($persona->archivo_ruta, $persona->archivo_original, $headers);
     }
 }

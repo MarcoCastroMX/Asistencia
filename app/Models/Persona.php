@@ -16,6 +16,9 @@ class Persona extends Model
         "identificador",
         "correo",
         "telefono",
+        "archivo_original",
+        "archivo_ruta",
+        "mime",
     ];
 
     public function user(){

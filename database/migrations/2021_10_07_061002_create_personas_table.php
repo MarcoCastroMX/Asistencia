@@ -22,6 +22,9 @@ class CreatePersonasTable extends Migration
             $table->string("identificador");
             $table->string("telefono");
             $table->string("correo");
+            $table->string("archivo_original");
+            $table->string("archivo_ruta");
+            $table->string("mime");
             $table->timestamps();
         });
     }

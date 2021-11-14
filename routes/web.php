@@ -20,6 +20,8 @@ Route::get('/', function () {
 
 Route::resource('persona', PersonaController::class);
 
+Route::get('descargar-archivo/{persona}', [PersonaController::class, 'descargarArchivo'])->name('descargar');
+
 Route::get('notificar', [PersonaController::class, 'notificar'])->name('notificar');
 
 Route::get('inicio', function () {
