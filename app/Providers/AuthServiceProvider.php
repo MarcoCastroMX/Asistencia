@@ -2,9 +2,13 @@
 
 namespace App\Providers;
 
+use App\Models\Persona;
 use App\Models\Team;
+use App\Models\User;
+use App\Policies\PersonaPolicy;
 use App\Policies\TeamPolicy;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
+use Illuminate\Support\Facades\Gate;
 
 class AuthServiceProvider extends ServiceProvider
 {
@@ -15,6 +19,7 @@ class AuthServiceProvider extends ServiceProvider
      */
     protected $policies = [
         Team::class => TeamPolicy::class,
+        Persona::class => PersonaPolicy::class,
     ];
 
     /**
@@ -26,6 +31,9 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
-        //
+        Gate::define('eliminar-persona', function(User $user, Persona $persona){
+            //return false;
+            return $user->id == $persona->user_id;
+        });
     }
 }

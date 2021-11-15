@@ -8,6 +8,7 @@ use App\Models\Persona;
 use Illuminate\Validation\Rule;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Storage;
 
@@ -38,6 +39,7 @@ class PersonaController extends Controller
      */
     public function create()
     {
+        $this->authorize('create',Persona::class);
         $areas = Area::all();
         return view("personas.personasForm",compact("areas"));
     }
@@ -162,6 +164,10 @@ class PersonaController extends Controller
      */
     public function destroy(Persona $persona)
     {
+        if (Gate::denies('eliminar-persona',$persona)){
+            abort(403);
+        }
+
         $persona->delete();
         return redirect()->route("persona.index");
     }

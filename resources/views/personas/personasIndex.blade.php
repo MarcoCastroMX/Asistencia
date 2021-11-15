@@ -1,12 +1,16 @@
 @extends("layouts.mi-layout")
 @section("contenido")
-
+    <h1>Listado de Personas</h1>
     <p>
         <a href="{{ route('notificar')}}">Enviar Notificacion</a>
     </p>
-
-    <h1>Listado de Personas</h1>
-
+    <p>
+        @can('create',App\Models\Persona::class)
+            <a href="{{ route('persona.create') }}">Crear Persona</a>
+        @elsecan('create',App\Models\Persona::class)
+            No puede crear persona
+        @endcan
+    </p>
     <table border ="1">
         <thead>
             <tr>
